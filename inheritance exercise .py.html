@@ -1,0 +1,91 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
+Complete the following exercise and submit the github link to your jupyter notebook file:
+
+
+
+You are given two classes, Person and Student, where Person is the base class and Student is the derived class. Completed code for Person and a declaration for Student are provided for you in the editor. Observe that Student inherits all the properties of Person.
+
+Complete the Student class by writing the following:
+
+A Student class constructor, which has 4 parameters:
+
+A string, firstName
+A string, lastName
+An integer, id An integer array (or vector) of test scores, scores
+A char calculate() method that calculates a Student object's average and returns the grade character representative of their calculated average:
+
+A | 90-100
+B | 80-89
+C | 70-79
+D | 60-69
+F | <60
+
+
+# In[ ]:
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Person {
+protected:
+    string firstName;
+    string lastName;
+    int id;
+public:
+    Person(string firstName, string lastName, int id) {
+        this->firstName = firstName;
+        this->lastName = lastName;
+        this->id = id;
+    }
+    void display() {
+        cout << "Name: " << lastName << ", " << firstName << endl;
+        cout << "ID: " << id << endl;
+    }
+};
+
+class Student : public Person {
+private:
+    vector<int> scores;
+public:
+    Student(string firstName, string lastName, int id, vector<int> scores) : Person(firstName, lastName, id), scores(scores) {
+    }
+
+    char calculate() {
+        int totalScore = 0;
+        for (int i = 0; i < scores.size(); i++) {
+            totalScore += scores[i];
+        }
+        int average = totalScore / scores.size();
+
+        if (average >= 90 && average <= 100) {
+            return 'A';
+        } else if (average >= 80 && average < 90) {
+            return 'B';
+        } else if (average >= 70 && average < 80) {
+            return 'C';
+        } else if (average >= 60 && average < 70) {
+            return 'D';
+        } else {
+            return 'F';
+        }
+    }
+};
+int main() {
+    string firstName = "John";
+    string lastName = "Doe";
+    int id = 12345;
+    vector<int> scores = {90, 85, 95, 88};
+
+    Student student(firstName, lastName, id, scores);
+    student.display();
+    cout << "Grade: " << student.calculate() << endl;
+
+    return 0;
+
